@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harshikesh Changani - UI/UX Designer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --background: #0a0a0a;
+      --surface: #111111;
+      --card-bg: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --highlight-bg: rgba(99, 102, 241, 0.1);
+      --highlight-border: rgba(99, 102, 241, 0.4);
+    }
+
+    * {margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-primary); background: var(--background); }
+
+    /* Full-page background animation */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 20%),
+                  radial-gradient(circle, var(--primary) 0%, transparent 20%),
+                  radial-gradient(circle, var(--secondary) 0%, transparent 20%);
+      background-size: 800px 800px; /* Size of the glowing spots */
+      background-position: 0% 0%;
+      animation: glow-move 45s linear infinite alternate; /* Slow, gentle animation */
+      opacity: 0.15; /* Subtly lower the opacity */
+      filter: blur(100px); /* Soften the glow */
+    }
+
+    @keyframes glow-move {
+      0% { background-position: 0% 0%, 50% 100%, 100% 50%; }
+      100% { background-position: 100% 100%, 0% 0%, 50% 50%; }
+    }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.9); backdrop-filter: blur(8px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; border-bottom: 1px solid var(--border); z-index: 100; }
+    nav .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
+    nav ul { display: flex; list-style: none; gap: 2rem; }
+    nav a { color: var(--text-secondary); text-decoration: none; transition: 0.3s; }
+    nav a:hover { color: var(--primary); }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 6rem 3rem 3rem; background: linear-gradient(135deg, #1a1a1a, #0f0f0f); }
+    .hero-container { display: flex; flex-wrap: wrap; gap: 3rem; align-items: center; max-width: 1200px; }
+    .hero-content { flex: 1; }
+    .hero-content h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+    .hero-subtitle { color: var(--secondary); font-weight: 600; margin-bottom: 1rem; }
+    .hero-description { color: var(--text-secondary); margin-bottom: 2rem; }
+    .cta-buttons { display: flex; gap: 1rem; }
+    .btn { padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--secondary); }
+    .btn-outline { border: 1px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: white; }
+
+    .hero-visual { flex: 1; display: flex; justify-content: center; }
+    .hero-card { background: var(--card-bg); padding: 1rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .hero-image { width: 280px; height: 400px; border-radius: 16px; object-fit: cover; }
+
+    /* Sections */
+    section { padding: 6rem 3rem; max-width: 1200px; margin: auto; }
+    section h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; text-align: center; color: white; }
+    section p { color: var(--text-secondary); line-height: 1.8; }
+
+    /* About Section - New UI */
+    .about-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+    .about-main-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .about-visual {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+    .about-image-container {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: auto;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 5px;
+      animation: pulse 4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    .about-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .about-image:hover {
+      transform: scale(1.05);
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 var(--primary);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+      }
+    }
+    .about-details {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+    .about-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+    }
+    .about-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+    .about-card p {
+      margin: 0;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .skill {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      padding: .5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: 0.3s;
+    }
+    .skill:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .stat-card {
+      background: var(--highlight-bg);
+      border: 1px solid var(--highlight-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-card h4 {
+      font-size: 2.2rem;
+      margin: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .stat-card p {
+      margin: 0.5rem 0 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    @media(max-width: 900px){
+      .about-main-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .about-details {
+        align-items: center;
+      }
+      .about-card, .inquiry-form {
+        margin: auto;
+      }
+    }
+
+    /* Portfolio */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .portfolio-item { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .portfolio-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2)); opacity: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; transition: opacity 0.4s ease; }
+    .portfolio-overlay h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: #fff; }
+    .portfolio-overlay p { margin: 0; font-size: 0.95rem; color: var(--text-secondary); }
+    .portfolio-item:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.55); }
+    .portfolio-item:hover img { transform: scale(1.1); }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+    /* Contact */
+    .contact-container { display: flex; flex-direction: column; gap: 3rem; }
+    .contact-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .contact-method {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .contact-method:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+    }
+    
+    /* New styles for the inquiry form */
+    .inquiry-form {
+      background: var(--surface);
+      padding: 3rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .inquiry-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .inquiry-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .inquiry-form label {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    /* Updated styles for inputs, textareas, and select elements */
+    .inquiry-form input,
+    .inquiry-form textarea,
+    .inquiry-form select {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      /* Changed color to black for better contrast on the dropdown menu */
+      color: black;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    /* This rule specifically targets the select to ensure the options are visible */
+    .inquiry-form select {
+        color: black;
+        background-color: white; /* Ensure a white background for readability */
+    }
+    .inquiry-form input:focus,
+    .inquiry-form textarea:focus,
+    .inquiry-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255,255,255,0.1);
+    }
+    .inquiry-form textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+    .inquiry-form .btn {
+      align-self: flex-start;
+      margin-top: 1rem;
+    }
+    .form-group.with-button {
+      position: relative;
+    }
+    .subject-button-container {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+    .subject-button-container .form-group {
+      flex-grow: 1;
+    }
+    #suggest-subject-btn {
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #suggest-subject-btn:hover:not(:disabled) {
+      background: var(--secondary);
+    }
+    #suggest-subject-btn:disabled {
+      background: #333;
+      border-color: #555;
+      cursor: not-allowed;
+    }
+
+    /* Message box styles */
+    .message-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      text-align: center;
+      display: none; /* Hidden by default */
+    }
+    .message-box h4 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    /* Experience Section Styling */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .experience-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+    .experience-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+    }
+    .job-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .job-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .job-duration {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .experience-item ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
+    .experience-item li {
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .experience-item li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-weight: bold;
+    }
+
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); background: #111; color: var(--text-secondary); }
+    
+    /* New styles for social media */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .social-links a {
+      color: var(--text-primary);
+      font-size: 2rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .social-links a:hover {
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid var(--text-primary);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">H.S. Changani</div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Harshikesh Changani</h1>
+        <div class="hero-subtitle">UI/UX Designer & Design QA</div>
+        <p class="hero-description">Creative and detail-oriented UI/UX Designer passionate about crafting user-friendly digital experiences. Skilled in wireframing, prototyping, and Information Architecture with a focus on solving real user problems.</p>
+        <div class="cta-buttons">
+          <a href="#portfolio" class="btn btn-primary"><i class="fas fa-eye"></i> View My Work</a>
+          <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Get In Touch</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <!-- The image for the hero card has been added here -->
+          <img src="UIUX.png" alt="Harshikesh Changani" class="hero-image"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section - New UI -->
+  <section class="about" id="about">
+    <h2>About Me</h2>
+    <div class="about-container">
+      <div class="about-main-content">
+        <div class="about-visual">
+          <div class="about-image-container">
+            <img src="https://placehold.co/280x280/1e1e1e/d4d4d4?text=H.S. Changani" alt="Harshikesh Changani" class="about-image"/>
+          </div>
+        </div>
+        <div class="about-details">
+          <div class="about-card">
+            <h3>About Me</h3>
+            <p>I'm a passionate and detail-oriented UI/UX Designer with a deep focus on creating clean, user-first digital experiences. For me, design is not just about visuals it's about solving real user problems with clarity, empathy, and strategy.</p>
+          </div>
+          <div class="stats-container">
+            <div class="stat-card">
+              <h4>25+</h4>
+              <p>Projects Completed</p>
+            </div>
+            <div class="stat-card">
+              <h4>9 Month</h4>
+              <p>of Experience</p>
+            </div>
+            <div class="stat-card">
+              <h4>10+</h4>
+              <p>Clients Served</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>What I Do</h3>
+        <p>I specialize in UX Research, Design QA, Information Architecture, and Visual Design with a focus on Figma-first workflows. My process blends design thinking, user testing, and pixel-perfect QA to deliver interfaces that are both intuitive and technically sound.</p>
+        <div class="skills-list">
+          <span class="skill">UX Research</span>
+          <span class="skill">Design QA</span>
+          <span class="skill">Information Architecture</span>
+          <span class="skill">Visual Design</span>
+          <span class="skill">Prototyping</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio" id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="Cover.png" alt="Espresso Express Cafe landing page mockup"/>
+        <div class="portfolio-overlay">
+          <h3>Espresso Express Cafe</h3>
+          <p>Modern and immersive landing page design for Espresso Express cafe, blending storytelling with elegant visuals.</p>
+          <a href="https://www.behance.net/gallery/227827447/Coffee-Shop-Or-Restaurant" target="_blank" class="btn btn-primary"><i class="fab fa-behance"></i> View on Behance</a>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <!-- Image for Project 2: The AI Hub -->
+        <img src="cover page.png"/>
+        <div class="portfolio-overlay">
+          <h3>The AI Hub</h3>
+          <p>A bold and modern landing page design for AI tool discovery, built to captivate fast-moving founders and digital creators.</p>
+          <a href="https://www.behance.net/gallery/227834137/THE-AI-HUB" target="_blank" class="btn btn-primary"><i class="fab fa-behance"></i> View on Behance</a>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <!-- Image for Project 3: Foody the Street Food -->
+        <img src="Desktop - 55.png" alt="Foody the Street Food"/>
+        <div class="portfolio-overlay">
+          <h3>Foody the Street Food</h3>
+          <p>A vibrant street food discovery app designed to help users explore local flavor with ease and delight.</p>
+          <a href="https://www.behance.net/gallery/227895399/FOODY-The-Street-Food" target="_blank" class="btn btn-primary"><i class="fab fa-behance"></i> View on Behance</a>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <!-- Image for Project 4: Rento Drive -->
+        <img src="Desktop - 58.png" alt="Rento Drive"/>
+        <div class="portfolio-overlay">
+          <h3>Rento Drive</h3>
+          <p>RentoDrive brings you effortless luxury car rentals with real-time booking, sleek design, and premium comfort any time, anywhere you go.</p>
+          <a href="https://www.behance.net/gallery/227986567/RentoDrive" target="_blank" class="btn btn-primary"><i class="fab fa-behance"></i> View on Behance</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section - Now with real content! -->
+  <section class="experience" id="experience">
+    <h2>Experience</h2>
+    <div class="experience-list">
+      <div class="experience-item">
+        <div class="job-details">
+          <h3 class="job-title">UI/UX Designer</h3>
+          <p class="job-duration">December 2024 - Present</p>
+        </div>
+        <p>At Ocean Infotech, I worked as a UI/UX Designer where I helped design web and mobile apps for various clients, including CRM systems and eCommerce platforms. My goal was to create interfaces that are easy to use, visually clear, and focused on user needs.</p>
+        <ul>
+          <li><b>User Research:</b> I spoke with users, gathered feedback, and studied their behavior to understand their needs and pain points.</li>
+          <li><b>Prototyping:</b> I created interactive prototypes in Figma, helping the team visualize user flows and test ideas early in the design process.</li>
+          <li><b>Design Systems:</b> I built and maintained reusable design components to keep the look and feel consistent across all screens and projects.</li>
+          <li><b>Design QA:</b> I reviewed the final product to make sure it matched the original design—checking for layout, spacing, typography, responsiveness, and accessibility.</li>
+          <li><b>Team Collaboration:</b> I worked closely with developers, project managers, and QA teams to ensure smooth handoff and correct design implementation.</li>
+          <li><b>Usability Testing:</b> I tested the designs with real users to find issues and improve the user experience based on their feedback.</li>
+          <li><b>Client Communication:</b> I presented my designs to clients, clearly explained my decisions, and made updates based on their input.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="contact-container">
+      <h2>Let's Work Together</h2>
+      <p>I'm always excited to work on new projects and collaborate with amazing people. Let's create something extraordinary together!</p>
+      
+      <!-- Existing contact methods -->
+      <div class="contact-methods">
+        <div class="contact-method">
+          <i class="fas fa-envelope"></i>
+          <h4>Email</h4>
+          <p><a href="mailto:harshikeshchangani07@gmail.com">harshikeshchangani07@gmail.com</a></p>
+        </div>
+        <div class="contact-method">
+          <i class="fas fa-phone"></i>
+          <h4>Phone</h4>
+          <p><a href="tel:+919313687873">+91 93136 87873</a></p>
+        </div>
+        <div class="contact-method">
+          <i class="fas fa-map-marker-alt"></i>
+          <h4>Location</h4>
+          <p>Rajkot, Gujarat, India</p>
+        </div>
+      </div>
+      
+      <!-- New Inquiry Form with Gemini API feature -->
+      <div class="inquiry-form">
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required/>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required/>
+          </div>
+          <div class="subject-button-container">
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="prototyping_wireframing">Prototyping & Wireframing</option>
+                <option value="ui_design">UI Design (Web or Mobile)</option>
+                <option value="ecommerce_ux_ui_design">E-commerce UX/UI Design</option>
+                <option value="usability_testing">Usability Testing</option>
+                <option value="website_app_redesign">Website/App Redesign</option>
+                <option value="design_consultation">Design Consultation</option>
+                <option id="suggested-subject-option" value="" style="display: none;"></option>
+              </select>
+            </div>
+            <button type="button" id="suggest-subject-btn" class="btn btn-primary">
+              ✨ Suggest Subject
+              <div id="loading-spinner" class="spinner"></div>
+            </button>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Message Box for Form Submission -->
+  <div id="message-box" class="message-box">
+    <h4>Message Sent!</h4>
+    <p>Thank a you for your inquiry. I will get back to you as soon as possible.</p>
+  </div>
+
+  <footer>
+    <!-- Social Media Section - Moved here -->
+    <div class="social-links">
+      <a href="https://www.behance.net/harshikeshchangani" target="_blank" aria-label="Behance"><i class="fab fa-behance"></i></a>
+      <a href="https://www.instagram.com/harshikesh_changani_ui_ux_designer/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/harshikesh-changani-ui-ux-designer/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <p>&copy; 2025 Harshikesh Changani. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript to handle the form submission and show a message
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevents the default form submission action
+      
+      const messageBox = document.getElementById('message-box');
+      messageBox.style.display = 'block';
+
+      // Hide the message box after 3 seconds
+      setTimeout(() => {
+        messageBox.style.display = 'none';
+      }, 3000);
+
+      // Clear the form fields after submission
+      this.reset();
+    });
+
+    // Gemini API integration for subject suggestion
+    const suggestSubjectBtn = document.getElementById('suggest-subject-btn');
+    const messageTextarea = document.getElementById('message');
+    const subjectSelect = document.getElementById('subject');
+    const suggestedOption = document.getElementById('suggested-subject-option');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    suggestSubjectBtn.addEventListener('click', async () => {
+      const message = messageTextarea.value.trim();
+      if (message.length === 0) {
+        // You could show a message to the user here. For now, we'll just return.
+        console.log("Please write a message before suggesting a subject.");
+        return;
+      }
+      
+      const prompt = `Based on the following message, provide a professional and concise subject line for an email. Your response must be a single line of text and contain no additional information or punctuation at the end. The message is:\n\n"${message}"`;
+
+      // Disable the button and show loading spinner
+      suggestSubjectBtn.disabled = true;
+      suggestSubjectBtn.querySelector('span').textContent = '';
+      loadingSpinner.style.display = 'block';
+
+      try {
+        let chatHistory = [];
+        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+        const payload = { contents: chatHistory };
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error(`API call failed with status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+          const text = result.candidates[0].content.parts[0].text.trim();
+          
+          // Add the new subject to the dropdown
+          suggestedOption.value = text;
+          suggestedOption.textContent = text;
+          suggestedOption.style.display = 'block';
+          
+          // Select the new option
+          subjectSelect.value = text;
+        } else {
+          console.error('Unexpected API response structure:', result);
+        }
+      } catch (error) {
+        console.error('Error suggesting subject:', error);
+      } finally {
+        // Re-enable the button and hide spinner
+        suggestSubjectBtn.disabled = false;
+        suggestSubjectBtn.querySelector('span').textContent = '✨ Suggest Subject';
+        loadingSpinner.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
