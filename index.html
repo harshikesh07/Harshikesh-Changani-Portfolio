@@ -736,6 +736,28 @@
         loadingSpinner.style.display = 'none';
       }
     });
+    const updateCursor = () => {
+      // Use linear interpolation to smooth the cursor movement
+      // This creates the subtle trailing effect
+      mouseX += (targetX - mouseX) * speed;
+      mouseY += (targetY - mouseY) * speed;
+      
+      customCursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      requestAnimationFrame(updateCursor);
+    };
+
+    // Start the animation loop
+    updateCursor();
+    
+    // Add event listeners to interactive elements
+    document.querySelectorAll(interactiveElements).forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        customCursor.classList.add('hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        customCursor.classList.remove('hover');
+      });
+    });
   </script>
 </body>
 </html>
